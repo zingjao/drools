@@ -1,0 +1,56 @@
+package rules
+import org.example.Product
+import org.example.ResultOutput
+global org.example.ResultOutput output;
+//語言類型，包含mvel、java
+dialect  "mvel"
+//規則(名稱自訂)
+rule "RateA"
+    //防止死循環
+    no-loop true
+    //優先級(越小越優先)
+    salience 1
+//    auto-focus true
+    //條件
+	when
+		productObject: Product(point>=90)
+	then
+//		productObject.setRate("A");
+		output.setRate("A");
+	end
+rule "RateB"
+    no-loop true
+    salience 2
+	when
+		productObject: Product(point>=80 && point<90)
+	then
+//		productObject.setRate("B");
+        output.setRate("B");
+	end
+rule "RateC"
+    no-loop true
+    salience 3
+	when
+		productObject: Product(point>=70 && point<80)
+	then
+//		productObject.setRate("C");
+        output.setRate("C");
+	end
+rule "RateD"
+    no-loop true
+    salience 4
+	when
+		productObject: Product(point>=60 && point<70)
+	then
+//		productObject.setRate("D");
+        output.setRate("D");
+	end
+rule "RateE"
+    no-loop true
+    salience 5
+    when
+        productObject: Product(point<60)
+    then
+//        productObject.setRate("E");
+        output.setRate("E");
+    end
